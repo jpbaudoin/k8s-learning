@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+  labels:
+    {{- include "kubemq-test-drive.labels" . | nindent 4 }}
+    app: receiver
+  name: receiver
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: receiver
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: receiver
+        version: {{ .Chart.AppVersion }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}    
+      containers:
+      - image: "{{ .Values.receiverImage }}"
+        imagePullPolicy: {{ .Values.receiver.imagePullPolicy }}
+        name: test-receiver

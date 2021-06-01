@@ -1,0 +1,7 @@
+metadata:
+  labels:
+    app: kubemq-dashboard2
+  name: kubemq-dashboard2
+ownerReferences: null
+spec:
+  type: LoadBalancer

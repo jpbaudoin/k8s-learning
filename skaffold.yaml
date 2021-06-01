@@ -1,0 +1,51 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+metadata:
+  name: kubemq-test-drive
+
+build:
+  artifacts:
+  - image: sender
+    context: dev/sender
+  - image: receiver
+    context: dev/receiver
+
+profiles:
+  - name: dev
+    activation:
+      - command: dev
+    build:
+      artifacts:
+      - image: sender
+        context: dev/sender
+        docker:
+          buildArgs:
+            ENV: "DEV"
+        sync:
+          manual:
+          - src: "*.py"
+            dest: "/app/"
+            #strip: "dev/sender"
+      - image: receiver
+        context: dev/receiver
+        docker:
+          buildArgs:
+            F_OWNER: "1000"
+        # Sync requires that the dest container has tar installed. With distroless images this may be an issue
+        sync:
+          infer: 
+          - "**/*"
+
+deploy:
+  helm:
+    releases:
+    - name: release1
+      createNamespace: true
+      artifactOverrides:
+        receiverImage: receiver
+        senderImage: sender
+      chartPath: ./kubemq-test-drive
+      namespace: test1
+      valuesFiles:
+      - ./kubemq-test-drive/values.yaml
+
