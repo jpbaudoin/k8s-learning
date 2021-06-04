@@ -9,6 +9,8 @@ build:
     context: dev/sender
   - image: receiver
     context: dev/receiver
+  - image: receiver2
+    context: dev/receiver2
 
 profiles:
   - name: dev
@@ -35,6 +37,8 @@ profiles:
         sync:
           infer: 
           - "**/*"
+      - image: receiver2
+        context: dev/receiver2
 
 deploy:
   helm:
@@ -42,8 +46,9 @@ deploy:
     - name: release1
       createNamespace: true
       artifactOverrides:
-        receiverImage: receiver
         senderImage: sender
+        receiverImage: receiver
+        receiver2Image: receiver2
       chartPath: ./kubemq-test-drive
       namespace: test1
       valuesFiles:

@@ -4,9 +4,12 @@ sender:
   imagePullPolicy: IfNotPresent
 
 receiver:
-  repository: receiver-sender
+  repository: test-receiver
   imagePullPolicy: IfNotPresent
 
+receiver2:
+  repository: test-receiver2
+  imagePullPolicy: IfNotPresent
 
 
 podSecurityContext:
