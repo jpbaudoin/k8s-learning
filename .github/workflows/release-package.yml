@@ -34,15 +34,15 @@ jobs:
       - name: Build and push to GitHub Packages - Sender
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./dev/sender/Dockerfile
+          context: ./dev/sender/
+          file: Dockerfile
           push: true
           tags: docker.pkg.github.com/${{ env.REPO }}/sender:${{ steps.vars.outputs.tag }}
 
       - name: Build and push to GitHub Packages - Receiver
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./dev/receiver
           file: ./dev/receiver/Dockerfile
           push: true
           tags: docker.pkg.github.com/${{ env.REPO }}/receiver:${{ steps.vars.outputs.tag }}
@@ -50,7 +50,7 @@ jobs:
       - name: Build and push to GitHub Packages - Receiver2
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./dev/receiver2/Dockerfile
+          context: ./dev/receiver
+          file: ./Dockerfile
           push: true
           tags: docker.pkg.github.com/${{ env.REPO }}/receiver2:${{ steps.vars.outputs.tag }}
