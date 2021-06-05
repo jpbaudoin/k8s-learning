@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./dev/sender/
-          file: ./Dockerfile
+          file: ./dev/sender/Dockerfile
           push: true
           tags: docker.pkg.github.com/${{ env.REPO }}/sender:${{ steps.vars.outputs.tag }}
 
