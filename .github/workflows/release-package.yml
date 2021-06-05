@@ -54,6 +54,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./dev/receiver
-          file: ./Dockerfile
+          file: ./dev/receiver/Dockerfile
           push: true
           tags: docker.pkg.github.com/${{ env.REPO }}/receiver2:${{ steps.vars.outputs.tag }}
