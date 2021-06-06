@@ -23,6 +23,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}    
       containers:
-      - image: "{{ .Values.receiver2Image }}"
-        imagePullPolicy: {{ .Values.receiver2.imagePullPolicy }}
+      - imagePullPolicy: {{ .Values.receiver2.imagePullPolicy }}
+        {{ $defaultImage :=  print "receiver2:" .Chart.AppVersion -}}
+        image: {{ .Values.receiver2Image | default $defaultImage }}
         name: test-receiver2

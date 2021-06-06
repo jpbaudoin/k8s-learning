@@ -1,16 +1,15 @@
 replicaCount: 1
 sender:
-  repository: test-sender
+  repository: sender
   imagePullPolicy: IfNotPresent
 
 receiver:
-  repository: test-receiver
+  repository: receiver
   imagePullPolicy: IfNotPresent
 
 receiver2:
-  repository: test-receiver2
+  repository: receiver2
   imagePullPolicy: IfNotPresent
-
 
 podSecurityContext:
   runAsUser: 1000
