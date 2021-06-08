@@ -37,10 +37,8 @@ jobs:
         run: echo ::set-output name=RELEASE_TAG::${GITHUB_REF/refs\/tags\//}
 
       - uses: azure/setup-helm@v1
-        with:
-          version: 'default' # default is latest stable
         id: install
-        
+
       - name: Create helm package
         run: |
           helm3 package --version ${RELEASE_TAG} kubemq-test-drive
