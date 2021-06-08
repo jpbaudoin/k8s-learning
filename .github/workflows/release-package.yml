@@ -40,6 +40,16 @@ jobs:
         env:
           RELEASE_TAG: ${{ steps.vars.outputs.tag }}
 
+      - name: Create helm package
+        run: |
+          helm3 package --version ${RELEASE_TAG} kubemq-test-drive
+
+      - name: Push Helm pkg to packe repository
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
+          path: ./kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
+
 # Docker images
       # - name: Build and push to GitHub Packages - Sender
       #   uses: docker/build-push-action@v2
@@ -69,11 +79,3 @@ jobs:
       # Download helm3
 
 
-      - name: Create helm package
-        run: |
-          helm3 package --version ${RELEASE_TAG} kubemq-test-drive
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
-          path: ./kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
