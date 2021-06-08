@@ -34,21 +34,17 @@ jobs:
       
       - name: Get the tag value
         id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+        run: echo ::set-output name=RELEASE_TAG::${GITHUB_REF/refs\/tags\//}
 
-      # - name: Set tag env var.
-      #   env:
-      #     RELEASE_TAG: ${{ steps.vars.outputs.tag }}
-
-      # - name: Create helm package
-      #   run: |
-      #     helm3 package --version ${RELEASE_TAG} kubemq-test-drive
+      - name: Create helm package
+        run: |
+          helm3 package --version ${RELEASE_TAG} kubemq-test-drive
 
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
       #   with:
-      #     name: kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
-      #     path: ./kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
+      #     name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG }}.tgz
+      #     path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG }}.tgz
 
 # Docker images
       # - name: Build and push to GitHub Packages - Sender
@@ -57,7 +53,7 @@ jobs:
       #     context: ./dev/sender/
       #     file: ./dev/sender/Dockerfile
       #     push: true
-      #     tags: docker.pkg.github.com/${{ env.REPO }}/sender:${{ steps.vars.outputs.tag }}
+      #     tags: docker.pkg.github.com/${{ env.REPO }}/sender:${{ steps.vars.outputs.RELEASE_TAG }}
 
       # - name: Build and push to GitHub Packages - Receiver
       #   uses: docker/build-push-action@v2
@@ -65,7 +61,7 @@ jobs:
       #     context: ./dev/receiver
       #     file: ./dev/receiver/Dockerfile
       #     push: true
-      #     tags: docker.pkg.github.com/${{ env.REPO }}/receiver:${{ steps.vars.outputs.tag }}
+      #     tags: docker.pkg.github.com/${{ env.REPO }}/receiver:${{ steps.vars.outputs.RELEASE_TAG }}
 
       # - name: Build and push to GitHub Packages - Receiver2
       #   uses: docker/build-push-action@v2
@@ -73,7 +69,7 @@ jobs:
       #     context: ./dev/receiver2
       #     file: ./dev/receiver2/Dockerfile
       #     push: true
-      #     tags: docker.pkg.github.com/${{ env.REPO }}/receiver2:${{ steps.vars.outputs.tag }}
+      #     tags: docker.pkg.github.com/${{ env.REPO }}/receiver2:${{ steps.vars.outputs.RELEASE_TAG }}
 
 # Helm pacakge
       # Download helm3
