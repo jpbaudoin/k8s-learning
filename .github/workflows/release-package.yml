@@ -64,7 +64,7 @@ jobs:
           push: true
           tags: docker.pkg.github.com/${{ env.REPO }}/receiver2:${{ steps.vars.outputs.tag }}
 
-      - name: Set Tag env Var
-        run: |
-          helm package --version ${RELEASE_TAG} kubemq-test-drive
-      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
+          path: ./kubemq-test-drive-${{ steps.vars.outputs.tag }}.tgz
