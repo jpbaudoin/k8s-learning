@@ -41,7 +41,7 @@ jobs:
 
       - name: Create helm package
         run: |
-          helm3 package --version ${RELEASE_TAG} kubemq-test-drive
+          helm package --version ${RELEASE_TAG} kubemq-test-drive
 
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
