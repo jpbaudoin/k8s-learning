@@ -32,13 +32,13 @@ jobs:
         run: |
           echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
       
-      # - name: Get the tag value
-      #   id: vars
-      #   run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+      - name: Get the tag value
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
 
-      # - name: Set tag env var.
-      #   env:
-      #     RELEASE_TAG: ${{ steps.vars.outputs.tag }}
+      - name: Set tag env var.
+        env:
+          RELEASE_TAG: ${{ steps.vars.outputs.tag }}
 
       # - name: Create helm package
       #   run: |
