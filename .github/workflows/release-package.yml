@@ -43,7 +43,7 @@ jobs:
         run: |
           helm package --version ${RELEASE_TAG} kubemq-test-drive
         env:
-          RELEASE_TAG: steps.vars.outputs.RELEASE_TAG
+          RELEASE_TAG: "v0.0.1" # steps.vars.outputs.RELEASE_TAG
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
       #   with:
