@@ -37,7 +37,6 @@ jobs:
         run: echo ::set-output name=RELEASE_TAG::${GITHUB_REF/refs\/tags\//}
 
       - name: Get the tag value
-        id: vars
         run: echo ::set-output name=RELEASE_TAG_TMP::v0.0.2
 
       - uses: azure/setup-helm@v1
