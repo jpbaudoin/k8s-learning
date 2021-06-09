@@ -34,16 +34,15 @@ jobs:
       
       - name: Get the tag value
         id: vars
-        run: echo ::set-output name=RELEASE_TAG::${GITHUB_REF/refs\/tags\//}
-
-      - name: Get the tag value
-        run: echo ::set-output name=RELEASE_TAG_TMP::v0.0.2
+        run: |
+         echo ::set-output name=RELEASE_TAG::${GITHUB_REF/refs\/tags\//} \
+         echo ::set-output name=RELEASE_TAG_TMP::v0.0.2
 
       - name: Check Release ID manual
         run: |
           echo "version: ${RELEASE}"
         env:
-          RELEASE: ${{ steps.outputs.RELEASE_TAG_TMP }}
+          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
 
 
       - name: Check Release ID - Tag
