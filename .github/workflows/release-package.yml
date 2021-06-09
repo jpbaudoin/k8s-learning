@@ -39,26 +39,33 @@ jobs:
       - name: Get the tag value
         run: echo ::set-output name=RELEASE_TAG_TMP::v0.0.2
 
-      - uses: azure/setup-helm@v1
-        id: install
-
-      - name: Check Release ID
+      - name: Check Release ID manual
         run: |
           echo "version: ${RELEASE}"
         env:
           RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
 
-      - name: Create helm package
-        run: |
-          helm package --version ${RELEASE} kubemq-test-drive
-        env:
-          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
 
-      - name: Push Helm pkg to packe repository
-        uses: actions/upload-artifact@v2
-        with:
-          name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
-          path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+      - name: Check Release ID - Tag
+        run: |
+          echo "version: ${RELEASE}"
+        env:
+          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG }}
+
+      # - uses: azure/setup-helm@v1
+      #   id: install
+
+      # - name: Create helm package
+      #   run: |
+      #     helm package --version ${RELEASE} kubemq-test-drive
+      #   env:
+      #     RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+
+      # - name: Push Helm pkg to packe repository
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+      #     path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
 
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
