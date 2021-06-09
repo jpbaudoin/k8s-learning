@@ -60,11 +60,11 @@ jobs:
         env:
           RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
 
-      # - name: Push Helm pkg to packe repository
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
-      #     path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+      - name: Push Helm pkg to packe repository
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+          path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
 
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
