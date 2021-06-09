@@ -51,14 +51,14 @@ jobs:
         env:
           RELEASE: ${{ steps.vars.outputs.RELEASE_TAG }}
 
-      # - uses: azure/setup-helm@v1
-      #   id: install
+      - uses: azure/setup-helm@v1
+        id: install
 
-      # - name: Create helm package
-      #   run: |
-      #     helm package --version ${RELEASE} kubemq-test-drive
-      #   env:
-      #     RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+      - name: Create helm package
+        run: |
+          helm package --version ${RELEASE} kubemq-test-drive
+        env:
+          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
 
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
