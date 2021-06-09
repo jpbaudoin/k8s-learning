@@ -42,11 +42,17 @@ jobs:
       - uses: azure/setup-helm@v1
         id: install
 
+      - name: Check Release ID
+        run: |
+          echo "version: ${RELEASE}"
+        env:
+          RELEASE: steps.vars.outputs.RELEASE_TAG_TMP
+
       - name: Create helm package
         run: |
-          helm package --version ${RELEASE_TAG} kubemq-test-drive
+          helm package --version ${RELEASE} kubemq-test-drive
         env:
-          RELEASE_TAG: steps.vars.outputs.RELEASE_TAG_TMP
+          RELEASE: steps.vars.outputs.RELEASE_TAG_TMP
 
       - name: Push Helm pkg to packe repository
         uses: actions/upload-artifact@v2
