@@ -43,7 +43,7 @@ jobs:
         run: |
           echo "version: ${RELEASE}"
         env:
-          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+          RELEASE: ${{ steps.outputs.RELEASE_TAG_TMP }}
 
 
       - name: Check Release ID - Tag
