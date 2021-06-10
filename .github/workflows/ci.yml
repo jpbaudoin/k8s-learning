@@ -2,9 +2,9 @@ name: Lint and Test Charts
 
 on:
   push:
-    branches:
-      - "renovate/**"
-    paths:
+    # branches:
+    #   - "renovate/**"
+    paths: # Not working
       - "kubemq-test-drive/**"
       - ".github/**"
       - "dev/**"
