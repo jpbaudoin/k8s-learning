@@ -7,6 +7,7 @@ on:
     paths:
       - 'kubemq-test-drive/**'
       - '.github/**'
+      - 'dev/**'
   pull_request:
 
 jobs:
