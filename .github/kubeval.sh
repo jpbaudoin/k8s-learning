@@ -7,7 +7,7 @@ MAIN_BRANCH=remotes/origin/main
 # renovate: datasource=github-releases depName=kubeval lookupName=instrumenta/kubeval
 KUBEVAL_VERSION=v0.16.1
 
-CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" ${MAIN_BRANCH} -- ${CHARTS_FOLDER} | cut -d '/' -f 2 | uniq)"
+CHART_DIRS="$(git diff --find-renames --name-only "$(git rev-parse --abbrev-ref HEAD)" ${MAIN_BRANCH} -- ${CHARTS_FOLDER} | grep '[cC]hart.yaml' | sed -e 's#/[Cc]hart.yaml##g')"
 SCHEMA_LOCATION="https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/"
 
 # install kubeval
