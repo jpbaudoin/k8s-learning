@@ -9,7 +9,7 @@ metadata:
   name: receiver
 
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: receiver
