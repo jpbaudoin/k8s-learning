@@ -64,6 +64,7 @@ jobs:
         uses: helm/chart-releaser-action@v1.2.1
         with:
           version: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+          charts_dir: kubemq-test-drive
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
