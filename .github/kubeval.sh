@@ -19,6 +19,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 # validate charts
 for CHART_DIR in ${CHART_DIRS}; do
-  (cd ${CHART_DIR}; helm dependency build)
+  (cd ${CHART_DIR}; helm dependency build) # This may not be necesary
+  # Add variablres for the tag of images
   helm template --values "${CHART_DIR}"/ci/ci-values.yaml "${CHART_DIR}" | ./kubeval --strict --ignore-missing-schemas --kubernetes-version "${KUBERNETES_VERSION#v}" --schema-location "${SCHEMA_LOCATION}"
 done
