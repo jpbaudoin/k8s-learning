@@ -19,10 +19,10 @@ profiles:
     build:
       artifacts:
       - image: sender
-        context: dev/sender
+        context: dev/sender # Path to image folder
         docker:
           buildArgs:
-            ENV: "DEV"
+            ENV: "DEV"      # This variable is used within the docker file to allow permission for skaffold to sync files
         sync:
           manual:
           - src: "*.py"
@@ -34,11 +34,15 @@ profiles:
           buildArgs:
             F_OWNER: "1000"
         # Sync requires that the dest container has tar installed. With distroless images this may be an issue
+        # For dev
         sync:
           infer: 
           - "**/*"
-      - image: receiver2
+      - image: receiver2        # Go application, build is done within the docker file
         context: dev/receiver2
+        docker:
+          buildArgs:
+            GO_IMAGE: "alpine:3"
 
 deploy:
   helm:
@@ -49,8 +53,8 @@ deploy:
         senderImage: sender
         receiverImage: receiver
         receiver2Image: receiver2
-      chartPath: ./kubemq-test-drive
+      chartPath: ./charts/kubemq-test-drive
       namespace: test1
       valuesFiles:
-      - ./kubemq-test-drive/values.yaml
+      - ./charts/kubemq-test-drive/values.yaml
 
