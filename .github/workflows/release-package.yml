@@ -61,7 +61,9 @@ jobs:
           version: v3.4.0
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
+        #uses: helm/chart-releaser-action@v1.2.1
+        uses: jpbaudoin/chart-releaser-action
+        
         with:
           #version: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
           charts_dir: charts
