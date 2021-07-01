@@ -1,7 +1,7 @@
 
 #!/bin/bash
 set -euxo pipefail
-CHARTS_FOLDER=kubemq-test-drive
+CHARTS_FOLDER=charts/kubemq-test-drive
 MAIN_BRANCH=remotes/origin/main
 
 # renovate: datasource=github-releases depName=kubeval lookupName=instrumenta/kubeval
