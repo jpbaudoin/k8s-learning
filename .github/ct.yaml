@@ -2,5 +2,5 @@ helm-extra-args: --timeout 600s
 check-version-increment: false
 debug: true
 #chart-repos: bitnami=https://charts.bitnami.com/bitnami
-charts: kubemq-test-drive
+charts: charts/kubemq-test-drive
 target-branch: main
