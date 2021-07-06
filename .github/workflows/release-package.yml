@@ -1,12 +1,15 @@
-name: CI
+
+
+#######
+name: release
 
 # Controls when the action will run.
 on:
   # Triggers the workflow on push events but only for the main branch
   push:
-    branchs: ['main']
+    branches: ['feature/ci_workflow']
     # tags:
-    #   - 'v*.*.*'
+    #   - 'v*.*.*' 
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,6 +24,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
+      # Publish the images
       - name: Login to GitHub Packages
         uses: docker/login-action@v1
         with:
@@ -38,33 +42,51 @@ jobs:
          echo ::set-output name=RELEASE_TAG::${GITHUB_REF/refs\/tags\//}
          echo ::set-output name=RELEASE_TAG_TMP::v0.0.2
 
-      - name: Check Release ID manual
-        run: |
-          echo "version: ${RELEASE}"
-        env:
-          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+      # - name: Check Release ID manual
+      #   run: |
+      #     echo "version: ${RELEASE}"
+      #   env:
+      #     RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
 
 
-      - name: Check Release ID - Tag
-        run: |
-          echo "version: ${RELEASE}"
-        env:
-          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG }}
+      # - name: Check Release ID - Tag
+      #   run: |
+      #     echo "version: ${RELEASE}"
+      #   env:
+      #     RELEASE: ${{ steps.vars.outputs.RELEASE_TAG }}
 
       - uses: azure/setup-helm@v1
         id: install
-
-      - name: Create helm package
-        run: |
-          helm package --version ${RELEASE} kubemq-test-drive
-        env:
-          RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
-
-      - name: Push Helm pkg to packe repository
-        uses: actions/upload-artifact@v2
         with:
-          name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
-          path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+          version: v3.4.0
+
+      - name: Git Status
+        run: |
+          git fetch --tags --unshallow
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.1
+        #uses: jpbaudoin/chart-releaser-action@main
+        
+        with:
+          #version: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+          charts_dir: charts
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+          
+      # - name: Create helm package
+      #   run: |
+      #     helm package --version ${RELEASE} kubemq-test-drive
+      #   env:
+      #     RELEASE: ${{ steps.vars.outputs.RELEASE_TAG_TMP }}
+
+      # - name: Push Helm pkg to packe repository
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+      #     path: ./kubemq-test-drive-${{ steps.vars.outputs.RELEASE_TAG_TMP }}.tgz
+
 
       # - name: Push Helm pkg to packe repository
       #   uses: actions/upload-artifact@v2
